@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="childConstrLayMarginTop">150dp</dimen>
+    <dimen name="childViewsWidth">200dp</dimen>
+    <dimen name="childViewsHeight">30dp</dimen>
+    <dimen name="buttonMarginTop">20dp</dimen>
+</resources>

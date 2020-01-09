@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ObservableProgressbar</string>
+    <string name="etHint">Insert number</string>
+    <string name="btnText">Start</string>
+    <string name="progressTvText">Progress:\n</string>
+    <string name="onCompleteTvText">Complete!</string>
+</resources>
