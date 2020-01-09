@@ -78,4 +78,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        compositeDisposable.dispose();
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        btn.setOnClickListener(null);
+    }
 }
