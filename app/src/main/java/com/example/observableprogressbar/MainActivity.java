@@ -46,33 +46,35 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                tv.setVisibility(View.VISIBLE);
+                if (!et.getText().toString().isEmpty()) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    tv.setVisibility(View.VISIBLE);
 
-                Disposable disposable=Observable.zip(reactiveManager.progressCounter(Integer.parseInt(et.getText().toString())),
-                        Observable.interval(1,TimeUnit.SECONDS),(d,f) -> d)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribeWith(new DisposableObserver<Integer>() {
-                            @Override
-                            public void onNext(Integer integer) {
-                                tv.setText("Progress:\n"+integer+" of "+et.getText().toString());
-                            }
+                    Disposable disposable = Observable.zip(reactiveManager.progressCounter(Integer.parseInt(et.getText().toString())),
+                            Observable.interval(1, TimeUnit.SECONDS), (d, f) -> d)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
+                            .subscribeWith(new DisposableObserver<Integer>() {
+                                @Override
+                                public void onNext(Integer integer) {
+                                    tv.setText("Progress:\n" + integer + " of " + et.getText().toString());
+                                }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_LONG).show();
-                            }
+                                @Override
+                                public void onError(Throwable e) {
+                                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
 
-                            @Override
-                            public void onComplete() {
-                                tv.setText(R.string.onCompleteTvText);
-                                progressBar.setVisibility(View.INVISIBLE);
-                                tv.setVisibility(View.INVISIBLE);
-                            }
-                        });
-                compositeDisposable.add(disposable);
+                                @Override
+                                public void onComplete() {
+                                    tv.setText(R.string.onCompleteTvText);
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    tv.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                    compositeDisposable.add(disposable);
 
+                }
             }
         });
     }
